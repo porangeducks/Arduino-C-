@@ -1,0 +1,80 @@
+// ============================================================================
+// Source: STEAM Clown - www.steamclown.org 
+// GitHub: https://github.com/jimTheSTEAMClown/arduinoCode
+// Hacker: Jim Burnham - STEAM Clown, Engineer, Maker, Propmaster & Adrenologist 
+// This example code under the GNU Lesser General Public License v3.0
+// and any docs and lesson examples is licensed under the CC BY-NC-SA 3.0.
+// https://creativecommons.org/licenses/by-nc-sa/3.0/
+// Create Date:			09/16/2018 
+// Design Name:			dcMotorTest_STEAMClown
+// Description:     adaptation of blink on http://arduino.cc/
+// Dependencies: 
+// Revision: 
+// Revision 0.02 - Updated for SVCTE Mechatronics Class 2018 - 09/16/2018
+// Revision 0.01 - Created 09/16/2018 
+// Additional Comments: 
+//
+// ============================================================================
+// General Pins and Variables
+  int boardLED=13;
+
+// Motor Control Pins and Variables
+  byte motorSpeed=0;  // change this (0-255) to control the speed of the motors
+  // Left Motor 
+  const int leftDirControl1 = 2;
+  const int leftDirControl2 = 3;
+  const int leftSpeedControlPin = 4; // Needs to be a PWM pin to be able to control motor speed
+
+void setup() {
+  // initialize serial communication @ 9600 baud:
+  Serial.begin(9600);
+
+  //Define L298N Dual H-Bridge Motor Controller Pins
+  pinMode(leftDirControl1,OUTPUT);
+  pinMode(leftDirControl2,OUTPUT);
+  pinMode(leftSpeedControlPin,OUTPUT);
+
+  // Stop All Motors
+  motorSpeed = 0;
+  analogWrite(leftSpeedControlPin, motorSpeed);//Sets speed variable via PWM
+  digitalWrite(leftDirControl1, LOW);
+  digitalWrite(leftDirControl2, LOW);
+  delay(1000);
+}
+   
+void loop() {
+      
+    // turn on left motor in a Clockwise motion
+    motorSpeed = 140;         //Sets speed variable via PWM = 140;
+    analogWrite(leftSpeedControlPin, motorSpeed);//Sets speed variable via PWM
+    digitalWrite(leftDirControl1, LOW);
+    digitalWrite(leftDirControl2, HIGH);
+    Serial.print("Clockwise with a speed of ");
+    Serial.println(motorSpeed);
+    delay(2000); 
+    
+    // Stop All Motors
+    motorSpeed = 0;
+    analogWrite(leftSpeedControlPin, motorSpeed);//Sets speed variable via PWM
+    digitalWrite(leftDirControl1, LOW);
+    digitalWrite(leftDirControl2, LOW);
+    Serial.println("All Motors STOPPED"); 
+    delay(1000); 
+    
+    // turn on left motor in a CounterClockwise motion
+    motorSpeed = 140;         //Sets speed variable via PWM = 140;
+    analogWrite(leftSpeedControlPin, motorSpeed);//Sets speed variable via PWM
+    digitalWrite(leftDirControl1, HIGH);
+    digitalWrite(leftDirControl2, LOW);
+    Serial.print("CounterClockwise with a speed of ");
+    Serial.println(motorSpeed);
+    delay(2000); 
+    
+    // Stop All Motors
+    motorSpeed = 0;
+    analogWrite(leftSpeedControlPin, motorSpeed);//Sets speed variable via PWM
+    digitalWrite(leftDirControl1, LOW);
+    digitalWrite(leftDirControl2, LOW);
+    Serial.println("All Motors STOPPED"); 
+    delay(1000); 
+ }
